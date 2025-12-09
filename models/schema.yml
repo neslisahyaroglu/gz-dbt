@@ -1,13 +1,80 @@
 version: 2
+
 sources:
   - name: raw
     schema: gz_raw_data
+
     tables:
+      # ----------------------------- #
+      # RAW PRODUCT
+      # ----------------------------- #
       - name: product
-        identifier: gz_raw_product
+        identifier: raw_gz_product
+        description: product of greenweez
 
+        columns:
+          - name: products_id
+            description: ürünün benzersiz kimligi
+            tests:
+              - not_null
+              - unique
+
+          - name: purchse_price
+            description: ürünü şirketin tedarikçiden satın aldığı fiyat
+
+      # ----------------------------- #
+      # RAW SALES
+      # ----------------------------- #
       - name: sales
-        identifier: gz_raw_sales
+        identifier: raw_gz_sales
+        description: sales of greenweez
 
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+
+        freshness:
+          warn_after: {count: 90, period: day}
+            
+        columns:
+          - name: date_date
+            description: sipariş tarihi
+
+          - name: orders_id
+            description: siparis numarasi
+
+          - name: product_id
+            description: ürünün benzersiz kimligi
+
+          - name: revenue
+            description: ciro, brüt gelir
+
+          - name: quantity
+            description: adet, bir sipariste kaç tane ürün satildigini gösterir
+
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - orders_id
+                - product_id
+
+      # ----------------------------- #
+      # RAW SHIP
+      # ----------------------------- #
       - name: ship
-        identifier: gz_raw_ship
+        identifier: raw_gz_ship
+        description: shipping of greenweez
+
+        columns:
+          - name: orders_id
+            description: siparis numarasi
+            tests:
+              - not_null
+              - unique
+
+          - name: shipping_fee
+            description: musteriden alinan kargo tasima ücreti
+
+          - name: logcost
+            description: lojistik maliyeti, sirketin siparisi tasitirken ödedigi tutar
+
+          - name: ship_cost
+            description: sirketin ödedigi kargo ücreti
