@@ -41,3 +41,97 @@ sources:
             description: the cost of preparing the parcel in the distribution centre/warehouse
           - name: ship_cost
             description: shipping cost paid by Greenweez to the carrier/logistics provider
+
+      - name: adwords
+        identifier: raw_gz_adwords  
+        description: adwords data for Greenweez
+        columns:
+          - name: date_date
+            description: date of adwords
+          - name: paid_source
+            description: payment method
+          - name: campaign_key
+            description: IDs for campaign names
+          - name: camPGN_name
+            description: campaign names
+          - name: ads_cost
+            description: advertising budget spent on impressions and clicks
+          - name: impression
+            description: campaign impression count
+          - name: click
+            description: campaign click count
+
+      - name: bing
+        identifier: raw_gz_bing
+        description: bing data for Greenweez
+        columns:
+          - name: date_date
+            description: date of adwords
+          - name: paid_source
+            description: payment method
+          - name: campaign_key
+            description: IDs for campaign names
+          - name: camPGN_name
+            description: campaign names
+          - name: ads_cost
+            description: advertising budget spent on impressions and clicks
+          - name: impression
+            description: campaign impression count
+          - name: click
+            description: campaign click count 
+
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: criteo data for Greenweez
+        columns:
+          - name: date_date
+            description: date of adwords
+          - name: paid_source
+            description: payment method
+          - name: campaign_key
+            description: IDs for campaign names
+          - name: camPGN_name
+            description: campaign names
+          - name: ads_cost
+            description: advertising budget spent on impressions and clicks
+          - name: impression
+            description: campaign impression count
+          - name: click
+            description: campaign click count
+
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: facebook data for Greenweez
+        columns:
+          - name: date_date
+            description: date of adwords
+          - name: paid_source
+            description: payment method
+          - name: campaign_key
+            description: IDs for campaign names
+          - name: camPGN_name
+            description: campaign names
+          - name: ads_cost
+            description: advertising budget spent on impressions and clicks
+          - name: impression
+            description: campaign impression count
+          - name: click
+            description: campaign click count
+
+models: 
+  - name: int_campaigns_sql
+    description : all campaigns data
+    columns: 
+      - name: paid_source
+        tests: 
+        - not_null
+      - name: campaign_name
+        tests: 
+        - not_null
+
+  - name: finance_campaigns_day
+    description: finance global kpi
+    columns: 
+      - name: ads_margin
+        tests: 
+        - not null
