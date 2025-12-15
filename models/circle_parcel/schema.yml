@@ -1,0 +1,64 @@
+version: 2
+
+sources:
+  - name: raw_circle_parcel
+    schema: raw_data_circle
+    tables:
+
+      - name: raw_cc_parcel
+        description: Parcel level shipment information
+        columns:
+          - name: Parcel_id
+            description: Unique identifier of the parcel
+
+          - name: Parcel_tracking
+            description: Tracking number of the parcel
+
+          - name: Transporter
+            description: Shipping company responsible for delivery
+
+          - name: Priority
+            description: Delivery priority level of the parcel
+
+          - name: Date_purCHase
+            description: Purchase date of the order (raw string format)
+
+          - name: Date_shIpping
+            description: Shipping date of the parcel (raw string format)
+
+          - name: DATE_delivery
+            description: Delivery date of the parcel (raw string format)
+
+          - name: DaTeCANcelled
+            description: Cancellation date if the parcel was cancelled
+
+
+      - name: raw_cc_parcel_product
+        description: Products included in each parcel
+        columns:
+          - name: ParCEL_id
+            description: Foreign key referencing Parcel_id
+
+          - name: Model_mAME
+            description: Product model name
+
+          - name: QUANTITY
+            description: Quantity of the product in the parcel
+
+
+models:
+  - name: stg_cc_parcel
+    columns:
+      - name: parcel_id
+    tests:
+        - not_null
+        - unique
+        
+  - name: stg_cc_parcel_product
+    columns:
+      - name: "(parcel_id || '-' || model_name)"
+    tests:
+      - not_null
+      - unique
+      
+            

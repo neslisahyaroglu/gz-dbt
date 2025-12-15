@@ -134,4 +134,4 @@ models:
     columns: 
       - name: ads_margin
         tests: 
-        - not null
+        - not_null
