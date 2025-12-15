@@ -14,7 +14,8 @@ total_cost,
 total_impression,
 total_click,
 
-(operational_margin-total_cost) as ads_margin
+(COALESCE(operational_margin, 0) - COALESCE(total_cost, 0)) as ads_margin
+--(operational_margin-total_cost) as ads_margin
 
 from {{ref("int_campaigns_day")}}
 full outer join {{ref("finance_days")}}

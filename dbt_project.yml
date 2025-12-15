@@ -38,7 +38,33 @@ clean-targets:         # directories to be removed by `dbt clean`
    
 models:
   my_new_project:
-    mart:
-      +materialized: table
-    finance:
-      +schema: finance
+
+    greenweez:
+      +schema: greenweez_dev   # İstersen genel varsayılan
+
+      staging:
+        +schema: greenweez_staging
+        +materialized: view
+
+      intermediate:
+        +schema: greenweez_intermediate
+        +materialized: view
+
+      mart:
+        +schema: greenweez_mart
+        +materialized: table
+
+    circle_parcel:
+      +schema: circle_parcel_dev   # İstersen genel varsayılan
+
+      staging:
+        +schema: circle_parcel_staging
+        +materialized: view
+
+      intermediate:
+        +schema: circle_parcel_intermediate
+        +materialized: view
+
+      mart:
+        +schema: circle_parcel_mart
+        +materialized: table
